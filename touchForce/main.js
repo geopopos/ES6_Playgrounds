@@ -9,10 +9,14 @@ const arc = {
   y: 100,
   r: 50,
   maxR: 200,
-  fill: "rgba(0, 0, 255, 0.25)",
+  opacity: 0.25,
   draw() {
     context.arc(this.x, this.y, this.r, 0, 2*Math.PI);
-    context.fillStyle = this.fill;
+    const grd = context.createRadialGradient(this.x,this.y,this.r/2,this.x,this.y,this.r);
+    grd.addColorStop(0, `rgba(20, 20, 20, ${this.opacity})`);
+    grd.addColorStop(1, `rgba(235, 235, 235, 0)`);
+    context.fillStyle = grd;
+    context.fill();
   }
 }
 
@@ -37,8 +41,8 @@ function touch(event){
 
   arc.x = event.touches[0].screenX;
   arc.y = event.touches[0].screenY;
-  arc.r = force * arc.maxR;
-  arc.fill = `rgba(0, 0, 255, ${force})`
+  arc.r = force * event.touches[0].radiusX * 7;
+  arc.opacity = force/2.3;
 
   draw();
 }
@@ -47,7 +51,6 @@ function draw() {
   context.clearRect(0, 0, canvas.width, canvas.height);
   context.beginPath();
   arc.draw();
-  context.fill();
 }
 
 function resizeCanvas(){
