@@ -8,7 +8,7 @@ const arc = {
   x: 100,
   y: 100,
   r: 1,
-  maxR: 10,
+  maxR: 7,
   draw() {
     // context.arc(this.x, this.y, this.r, 0, 2*Math.PI);
     // context.fillStyle = "black";
