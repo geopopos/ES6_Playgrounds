@@ -41,7 +41,7 @@ function touch(event){
 
   arc.x = event.touches[0].screenX - canvas.offsetLeft;
   arc.y = event.touches[0].screenY - canvas.offsetTop;
-  arc.r = force * force;
+  arc.r = (force * force) * maxR;
 
   draw();
 
