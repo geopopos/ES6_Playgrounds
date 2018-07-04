@@ -52,3 +52,47 @@ const touchPressure = document.getElementById('touchpressure');
 console.log(touchPressure);
 
 addEventListener('touchmove', (event) => touchPressure.innerHTML = `Touch Force: ${event.targetTouches[0].force}`);
+
+// REMOVING EVENT LISTENERS
+const onceParagraph = document.getElementById('once');
+onceParagraph.addEventListener('click', remove);
+
+function remove(event) {
+  console.log('Enjoy this while it lasts!');
+  onceParagraph.style.backgroundColor = 'pink';
+  onceParagraph.removeEventListener('click', remove);
+}
+
+// STOPPING DEFAULT BEHAVIOR
+const brokenLink = document.getElementById('broken');
+
+brokenLink.addEventListener('click', (event) => {
+  event.preventDefault();
+  console.log('Broken Link');
+});
+
+
+// EVENT PROPAGATION
+// Bubbling VS Capture
+// BUBBLING: used by setting the third parameter in the addEventListener function to false (this is default)
+// basically events are fired from the element clicked on and then bubble up to the parents all the way to the root
+// so when the li is clicked on 'Clicked on li' will populate the console first then 'Clicked on ul'
+// Capture: used by setting the third parameter in the addEventListener function to true
+//basically events are fired from the root element all the way down through the children to the element clicked on
+// so when the li is clicked on 'Clicked on ul' will populate the console first then 'Clicked on li'
+ulElement = document.getElementById('list');
+liElement = document.querySelector('#list li');
+
+// ulElement.addEventListener('click', (event) => console.log('Clicked on ul'), false);
+// liElement.addEventListener('click', (event) => console.log('Clicked on li'), true);
+
+
+// STOPPING THE BUBBLING PHASE
+// liElement.addEventListener('click', (event) => {
+//   console.log('clicked on li');
+//   event.stopPropagation();
+// }, false);
+
+
+// EVENT DELEGATION
+ulElement.addEventListener('click', highlight);
